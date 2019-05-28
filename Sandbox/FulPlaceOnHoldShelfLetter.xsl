@@ -40,7 +40,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 												<b>Ditt exemplar finns nu att hämta på Huvudbiblioteket. Ange följande löpnummer i lånedisken:</b>
 											</xsl:if>
 										</xsl:when>
-										<!-- För övriga lån-->
+										<!-- För övriga låntyper-->
 										<xsl:otherwise>
 											<xsl:if test="notification_data/request/delivery_address='Main Library'">
 												<b>Your item is now available for pick up at the Main Library. Use the following number to find your material on the hold shelf:</b>
