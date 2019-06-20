@@ -27,36 +27,52 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 					<table cellspacing="0" cellpadding="5" border="0">
 						<tr>
 							<td>
-							<xsl:if test="notification_data/request/delivery_address='Main Library'">
-								<b>The following is now available for pick up at the Main Library.</b>
+							<xsl:choose>
+								<!-- För HB-->
+								<xsl:when test="notification_data/request/delivery_address='Huvudbiblioteket' or notification_data/request/delivery_address='Main Library'">
+									<xsl:choose>
+										<!-- För fjärrlån och läsesalslån --> 
+										<xsl:when test="contains(notification_data/phys_item_display/available_items/available_item/item_policy, 'reading_room') or contains(notification_data/phys_item_display/location_code, 'OUT_RS_REQ') ">
+											<xsl:if test="notification_data/request/delivery_address='Main Library'">
+												Your item is now available for pick up at the KTH Main Library. <br/><br/>
+												<div style="font-size: 24px;">Pick up from circulation desk.</div> 
+											</xsl:if>
+											<xsl:if test="notification_data/request/delivery_address='Huvudbiblioteket'">
+												Din bok finns nu att hämta på KTH Huvudbiblioteket.<br/><br/>
+												<div style="font-size: 24px;">Hämta vid lånedisken.</div>
+											</xsl:if>
+										</xsl:when>
+										<!-- För övriga låntyper-->
+										<xsl:otherwise>
+											<xsl:if test="notification_data/request/delivery_address='Main Library'">
+												Your item is now available for pick up at the KTH Main Library.<br/><br/>
+												<div style="font-size: 24px;">Pick from hold shelf: </div>
+											</xsl:if>
+											<xsl:if test="notification_data/request/delivery_address='Huvudbiblioteket'">
+												Din bok finns nu att hämta på KTH Huvudbiblioteket.<br/><br/>
+												<div style="font-size: 24px;">Hämta på reservationshyllan:</div>
+											</xsl:if>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<!-- För filialerna-->
+								<xsl:otherwise>
+									<xsl:if test="notification_data/receivers/receiver/preferred_language='sv'">
+										Din bok finns nu att hämta på KTH Biblioteket i <span><xsl:value-of select="notification_data/request/delivery_address"/></span>.<br/><br/>
+										<div style="font-size: 24px;">Hämta vid lånedisken:</div>
+									</xsl:if>
+									<xsl:if test="notification_data/receivers/receiver/preferred_language='en'">
+										Your item is now available for pick up at the KTH Library in <span><xsl:value-of select="notification_data/request/delivery_address"/></span>.<br/><br/>
+										<div style="font-size: 24px;">Pick up from circulation desk:</div>
+									</xsl:if>
+								</xsl:otherwise>
+							</xsl:choose>
+							<!-- Löpnummer(Additional ID)-->
+							<xsl:if test="(notification_data/phys_item_display/location_code!='OUT_RS_REQ' and notification_data/phys_item_display/available_items/available_item/item_policy!='reading_room') and (notification_data/request/delivery_address='Main Library' or notification_data/request/delivery_address='Huvudbiblioteket')">
+							<div style="font-size: 24px;">
+								<xsl:value-of select="notification_data/additional_id"/>
+							</div>
 							</xsl:if>
-							<xsl:if test="notification_data/request/delivery_address='Huvudbiblioteket'">
-								<b>Nedanstående finns nu att hämta på Huvudbiblioteket.</b>
-							</xsl:if>
-							<xsl:if test="notification_data/request/delivery_address='Kista'">
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='sv'">
-									<b>Nedanstående finns nu att hämta på biblioteket i Kista.</b>
-								</xsl:if>
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='en'">
-									<b>The following is now available for pick up at the library in Kista.</b>
-								</xsl:if>
-							</xsl:if>
-							<xsl:if test="notification_data/request/delivery_address='Flemingsberg'">
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='sv'">
-									<b>Nedanstående finns nu att hämta på biblioteket i Flemingsberg.</b>
-								</xsl:if>
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='en'">
-									<b>The following is now available for pick up at the library in Flemingsberg.</b>
-								</xsl:if>
-							</xsl:if>						
-							<xsl:if test="notification_data/request/delivery_address='Södertälje'">
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='sv'">
-									<b>Nedanstående finns nu att hämta på biblioteket i Södertälje.</b>
-								</xsl:if>
-								<xsl:if test="notification_data/receivers/receiver/preferred_language='en'">
-									<b>The following is now available for pick up at the library in Södertälje.</b>
-								</xsl:if>
-								</xsl:if>
 							</td>
 						</tr>
 						<tr>

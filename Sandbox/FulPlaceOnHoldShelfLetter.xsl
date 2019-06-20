@@ -34,19 +34,23 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 										<!-- För fjärrlån och läsesalslån --> 
 										<xsl:when test="contains(notification_data/phys_item_display/available_items/available_item/item_policy, 'reading_room') or contains(notification_data/phys_item_display/location_code, 'OUT_RS_REQ') ">
 											<xsl:if test="notification_data/request/delivery_address='Main Library'">
-												<b>Your item is now available for pick up at the Main Library. Show the following number at the circulation desk:</b>
+												Your item is now available for pick up at the KTH Main Library. <br/><br/>
+												<div style="font-size: 24px;">Pick up from circulation desk.</div> 
 											</xsl:if>
 											<xsl:if test="notification_data/request/delivery_address='Huvudbiblioteket'">
-												<b>Ditt exemplar finns nu att hämta på Huvudbiblioteket. Ange följande löpnummer i lånedisken:</b>
+												Din bok finns nu att hämta på KTH Huvudbiblioteket.<br/><br/>
+												<div style="font-size: 24px;">Hämta vid lånedisken.</div>
 											</xsl:if>
 										</xsl:when>
 										<!-- För övriga låntyper-->
 										<xsl:otherwise>
 											<xsl:if test="notification_data/request/delivery_address='Main Library'">
-												<b>Your item is now available for pick up at the Main Library. Use the following number to find your material on the hold shelf:</b>
+												Your item is now available for pick up at the KTH Main Library.<br/><br/>
+												<div style="font-size: 24px;">Pick from hold shelf: </div>
 											</xsl:if>
 											<xsl:if test="notification_data/request/delivery_address='Huvudbiblioteket'">
-												<b>Ditt exemplar finns nu att hämta på Huvudbiblioteket. Använd följande löpnummer för att hitta materialet på reservationshyllan:</b>
+												Din bok finns nu att hämta på KTH Huvudbiblioteket.<br/><br/>
+												<div style="font-size: 24px;">Hämta på reservationshyllan:</div>
 											</xsl:if>
 										</xsl:otherwise>
 									</xsl:choose>
@@ -54,17 +58,21 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 								<!-- För filialerna-->
 								<xsl:otherwise>
 									<xsl:if test="notification_data/receivers/receiver/preferred_language='sv'">
-										<b>Ditt exemplar finns nu att hämta på biblioteket i <span><xsl:value-of select="notification_data/request/delivery_address"/></span>. Ange följande löpnummer i lånedisken:</b>
+										Din bok finns nu att hämta på KTH Biblioteket i <span><xsl:value-of select="notification_data/request/delivery_address"/></span>.<br/><br/>
+										<div style="font-size: 24px;">Hämta vid lånedisken:</div>
 									</xsl:if>
 									<xsl:if test="notification_data/receivers/receiver/preferred_language='en'">
-										<b>Your item is now available for pick up at the library in <span><xsl:value-of select="notification_data/request/delivery_address"/></span>. Show the following number at the circulation desk:</b>
+										Your item is now available for pick up at the KTH Library in <span><xsl:value-of select="notification_data/request/delivery_address"/></span>.<br/><br/>
+										<div style="font-size: 24px;">Pick up from circulation desk:</div>
 									</xsl:if>
 								</xsl:otherwise>
 							</xsl:choose>
 							<!-- Löpnummer(Additional ID)-->
-							<div style="font-size: 30px;">
+							<xsl:if test="(notification_data/phys_item_display/location_code!='OUT_RS_REQ' and notification_data/phys_item_display/available_items/available_item/item_policy!='reading_room') and (notification_data/request/delivery_address='Main Library' or notification_data/request/delivery_address='Huvudbiblioteket')">
+							<div style="font-size: 24px;">
 								<xsl:value-of select="notification_data/additional_id"/>
 							</div>
+							</xsl:if>
 							</td>
 						</tr>
 						<tr>

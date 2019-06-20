@@ -43,9 +43,8 @@
 										</div>
 										<!-- 20190528 Bortkommenterat rubrik Requested for -->
 										<!--div style="font-size: 16px;font-weight: bold">@@requested_for@@: </div-->
-										<!-- 20190528 Lagt till villkor för attt visa fjärr- och läsesalslån i klartext, men öriga reservationer med Additional ID -->
 										<xsl:choose>
-											<xsl:when test="(notification_data/phys_item_display/location_code='OUT_RS_REQ') or (notification_data/phys_item_display/available_items/available_item/item_policy='reading_room')">
+											<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ' or notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
 												<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="notification_data/user_for_printing/name"/></span>
 											</xsl:when>
 											<xsl:otherwise>
@@ -54,7 +53,7 @@
 										</xsl:choose>
 										<br></br>
 										<xsl:if test="notification_data/request/work_flow_entity/step_type!='ON_HOLD_SHELF'">
-											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/><!--xsl:value-of select="notification_data/request/work_flow_entity/create_date"/-->
+											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/>
 										</xsl:if>
 										<xsl:if test="notification_data/request/work_flow_entity/step_type='ON_HOLD_SHELF'">
 											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/>&#160;<b>Held until: </b><xsl:value-of select="notification_data/request/work_flow_entity/expiration_date"/>

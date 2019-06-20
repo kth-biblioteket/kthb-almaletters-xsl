@@ -22,19 +22,38 @@
 										<img src="cid:logo.jpg" alt="logo"/>
 									</td>
 									<td style="vertical-align: top; padding: 0px; padding-bottom: 10px">
-										<div style="font-size: 16px;font-weight: bold">@@requested_for@@: </div>
-										<!--xsl:choose>
-											<xsl:when test="contains(notification_data/user_for_printing/name, ', ')">
-												<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="substring-after(notification_data/user_for_printing/name, ', ') "/>&#160;<xsl:value-of select="substring-before(notification_data/user_for_printing/name, ',') "/></span>
+										<!-- 20190424 Ny rubrik som bygger på vilken item policy eller location code som finns i XML -->
+										<div>
+											<xsl:choose>
+												<xsl:when test="notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
+													<span style="font-size: 20px">
+														Reading room loan
+													</span>
+												</xsl:when>
+												<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ'">
+													<span style="font-size: 20px">
+														Resource sharing loan
+													</span>
+												</xsl:when>
+												<xsl:otherwise>
+													<span style="font-size: 20px">
+													</span>
+												</xsl:otherwise>
+											</xsl:choose>
+										</div>
+										<!-- 20190528 Bortkommenterat rubrik Requested for -->
+										<!--div style="font-size: 16px;font-weight: bold">@@requested_for@@: </div-->
+										<xsl:choose>
+											<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ' or notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
+												<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="notification_data/user_for_printing/name"/></span>
 											</xsl:when>
 											<xsl:otherwise>
-												<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="notification_data/user_for_printing/name"/></span>
+												<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="notification_data/additional_id"/></span>
 											</xsl:otherwise>
-										</xsl:choose-->
-										<span style="font-size: 30px;font-weight: bold"><xsl:value-of select="notification_data/user_for_printing/name"/></span>
+										</xsl:choose>
 										<br></br>
 										<xsl:if test="notification_data/request/work_flow_entity/step_type!='ON_HOLD_SHELF'">
-											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/><!--xsl:value-of select="notification_data/request/work_flow_entity/create_date"/-->
+											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/>
 										</xsl:if>
 										<xsl:if test="notification_data/request/work_flow_entity/step_type='ON_HOLD_SHELF'">
 											<b>Printed: </b><xsl:value-of select="notification_data/general_data/current_date"/>&#160;<b>Held until: </b><xsl:value-of select="notification_data/request/work_flow_entity/expiration_date"/>
@@ -45,11 +64,14 @@
 						</xsl:if>
 						<table cellspacing="0" cellpadding="5" border="0">
 							<xsl:if test="notification_data/request/note != ''">
-								<tr>
-									<td style="border: 2px solid #000000;">
-										<b>@@request_note@@: </b> <xsl:value-of select="notification_data/request/note"/>
-									</td>
-								</tr>
+								<!-- 20190528 Villkor för att request note ej ska visas för fjärrlån -->
+								<xsl:if test="notification_data/phys_item_display/location_code !='OUT_RS_REQ'">
+									<tr>
+										<td style="border: 2px solid #000000;">
+											<b>@@request_note@@: </b> <xsl:value-of select="notification_data/request/note"/>
+										</td>
+									</tr>
+								</xsl:if>
 							</xsl:if>
 							<xsl:if  test="notification_data/request/selected_inventory_type='ITEM'" >
 								<tr>
