@@ -18,23 +18,23 @@
 						<xsl:if test="notification_data/user_for_printing/name">
 							<table cellspacing="0" cellpadding="0" border="0">
 								<tr>
-									<td rowspan="2" style="width:80px; padding-right: 5px;">
+									<td rowspan="2" style="width:70px; padding-right: 5px;">
 										<img style="width:100%" src="cid:logo.jpg" alt="logo"/>
 									</td>
 							<!-- 20190424 Ny rubrik som bygger på vilken item policy eller location code som finns i XML -->
 							<xsl:choose>
 								<xsl:when test="notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
-									<td style="font-size: 20px;font-weight: bold">
+									<td style="font-size: 24px;font-weight: bold">
 										Reading room loan
 									</td>
 								</xsl:when>
 								<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ'">
-									<td style="font-size: 20px;font-weight: bold">
+									<td style="font-size: 24px;font-weight: bold">
 										Resource sharing loan
 									</td>
 								</xsl:when>
 								<xsl:otherwise>
-									<td style="border: 2px solid black;padding: 3px; font-size: 20px;font-weight: bold">
+									<td style="border: 2px solid black;padding: 3px; font-size: 24px;font-weight: bold">
 										Please remember to borrow the book
 									</td>
 								</xsl:otherwise>
@@ -56,7 +56,7 @@
 								</tr>
 							</table>
 						</xsl:if>
-						<br>
+						<br/>
 						<table cellspacing="0" cellpadding="5" border="0">
 								<tr>
 									<td>
