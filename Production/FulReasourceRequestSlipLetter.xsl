@@ -47,7 +47,7 @@
 												<td style="line-height: 30px;vertical-align: bottom;font-size: 30px;font-weight: bold">
 													<!-- 20190528 Bortkommenterat rubrik Requested for -->
 													<!--div style="font-size: 16px;font-weight: bold">@@requested_for@@: </div-->
-													<!-- 2020-08-17, Visa additional ID för alla utom "reading room" -->
+													<!-- 2020-08-17, Visa additional ID för alla utom "OUT_RS_REQ" och "reading room" -->
 													<!--xsl:value-of select="notification_data/user_for_printing/name"/-->
 													<xsl:choose>
 														<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ' or notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
