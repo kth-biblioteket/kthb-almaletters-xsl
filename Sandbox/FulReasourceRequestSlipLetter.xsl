@@ -50,10 +50,16 @@
 													<!-- 2020-08-17, Visa additional ID för alla utom "OUT_RS_REQ" och "reading room" -->
 													<!--xsl:value-of select="notification_data/user_for_printing/name"/-->
 													<xsl:choose>
-														<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ' or notification_data/phys_item_display/available_items/available_item/item_policy='reading_room'">
+														<xsl:when test="notification_data/phys_item_display/location_code='OUT_RS_REQ' 
+																		or notification_data/phys_item_display/available_items/available_item/item_policy='reading_room' 
+																		or notification_data/user_for_printing/user_group=150 
+																		or notification_data/user_for_printing/user_group=160 
+																		or notification_data/user_for_printing/user_group=165 
+																		or notification_data/user_for_printing/user_group=170">
 															<xsl:value-of select="notification_data/user_for_printing/name"/>
 														</xsl:when>
 														<xsl:otherwise>
+															<!-- Skapa krypterat löpnummer via anrop till API-->
 															<xsl:if test="notification_data/user_for_printing/identifiers/code_value/code = 'Primary Identifier'">
 																<xsl:variable name="primaryid">
 																	<xsl:value-of select="substring-before(notification_data/user_for_printing/identifiers/code_value/value,'@')"/>
