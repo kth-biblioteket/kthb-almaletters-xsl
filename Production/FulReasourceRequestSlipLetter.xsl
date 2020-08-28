@@ -59,7 +59,21 @@
 															<xsl:value-of select="notification_data/user_for_printing/name"/>
 														</xsl:when>
 														<xsl:otherwise>
-															<xsl:value-of select="notification_data/additional_id"/>
+															<!-- Skapa krypterat löpnummer via anrop till API-->
+															<xsl:if test="notification_data/user_for_printing/identifiers/code_value/code = 'Primary Identifier'">
+																<xsl:variable name="primaryid">
+																	<xsl:value-of select="substring-before(notification_data/user_for_printing/identifiers/code_value/value,'@')"/>
+																</xsl:variable>
+																<xsl:variable name="additionalid">
+																	<xsl:value-of select="/notification_data/additional_id"/>
+																</xsl:variable>
+																<xsl:variable name="holdshelfnumber" select="document(concat('https://lib.kth.se/holdshelfno/api/v1/', $primaryid, '/',$additionalid,'/?token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx'))">
+																</xsl:variable>
+																<xsl:value-of select="$holdshelfnumber/holdshelfnumber/userid_encrypted"/>
+																<xsl:value-of select="'-'"/>
+																<xsl:value-of select="$holdshelfnumber/holdshelfnumber/holdshelfnumber"/>
+															</xsl:if>
+															<!--xsl:value-of select="notification_data/additional_id"/-->
 														</xsl:otherwise>
 													</xsl:choose>
 												</td>
