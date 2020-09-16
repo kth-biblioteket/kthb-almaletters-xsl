@@ -68,7 +68,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 								</xsl:otherwise>
 							</xsl:choose>
 							<!-- Löpnummer(Additional ID)-->
-							<xsl:if test="(notification_data/phys_item_display/location_code!='OUT_RS_REQ' and notification_data/phys_item_display/available_items/available_item/item_policy!='reading_room') and (notification_data/request/delivery_address='Main Library' or notification_data/request/delivery_address='Huvudbiblioteket')">
+							<xsl:if test="(notification_data/phys_item_display/location_code!='OUT_RS_REQ' and notification_data/phys_item_display/available_items/available_item/item_policy!='reading_room')">
 							<div style="font-size: 24px;">
 								<!-- Skapa krypterat löpnummer via anrop till API-->
 								<xsl:if test="notification_data/user_for_printing/identifiers/code_value/code = 'Primary Identifier'">
