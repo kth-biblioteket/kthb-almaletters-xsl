@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <xsl:include href="header.xsl" />
 <xsl:include href="senderReceiver.xsl" />
@@ -14,14 +13,17 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		<head>
 		<xsl:call-template name="generalStyle" />
 		</head>
-
 			<body>
-			<xsl:attribute name="style">
-				<xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
-			</xsl:attribute>
+				<xsl:attribute name="style">
+					<xsl:call-template name="bodyStyleCss" /> <!-- style.xsl -->
+				</xsl:attribute>
 				<xsl:call-template name="head" /> <!-- header.xsl -->
 				<xsl:call-template name="senderReceiver" /> <!-- SenderReceiver.xsl -->
 				<xsl:call-template name="toWhomIsConcerned" /> <!-- mailReason.xsl -->
+				<!-- Se till att fjärrlånebibliotek inte får ett mejl-->
+				<xsl:if test="notification_data/user_for_printing/user_group='150' or notification_data/user_for_printing/user_group='160' or notification_data/user_for_printing/user_group='165' or notification_data/user_for_printing/user_group='170'">
+					<xsl:message terminate="yes">user group is ILL!</xsl:message>ILL!
+				</xsl:if>
 				<div class="messageArea">
 				<div class="messageBody">
 					<table cellspacing="0" cellpadding="5" border="0">
