@@ -9,7 +9,7 @@
 	<xsl:template match="/">
 		<html>
 			<head>
-				<xsl:call-template name="generalStyle" /> <!-- style.xsl -->
+				<xsl:call-template name="generalStyle" /> <!-- style.xsl a -->
 			</head>
 			<body>
 				<!--xsl:call-template name="headkvitto" /--> <!-- header.xsl --> <!-- Skriv inte ut någon header -->
