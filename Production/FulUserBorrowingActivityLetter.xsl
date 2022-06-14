@@ -61,6 +61,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 									<th>@@due_date@@</th>
 									<th>@@fine@@</th>
 									<th>@@library@@</th>
+                                                                        <th>@@call_number@@</th>
 								</tr>
 
 		                		<xsl:for-each select="notification_data/overdue_item_loans/item_loan">
@@ -100,7 +101,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 									<th>@@due_date@@</th>
 									<th>@@fine@@</th>
 									<th>@@description@@</th>
-                                                                        <th>call number</th>
+                                                                        <th>@@call_number@@</th>
 								</tr>
 
 		                		<xsl:for-each select="notification_data/item_loans/item_loan">
@@ -161,6 +162,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
           </div>
         </div>
+
         <!-- footer.xsl -->
         <xsl:call-template name="lastFooter" />
       </body>
